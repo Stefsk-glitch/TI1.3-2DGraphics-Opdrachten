@@ -27,8 +27,27 @@ public class Graph extends Application
     
     public void draw(FXGraphics2D graphics)
     {
+        graphics.setColor(Color.red);
+        graphics.drawLine(0,(int)this.canvas.getHeight()/2,1000,(int)this.canvas.getHeight()/2);
+
+        graphics.setColor(Color.green);
+        graphics.drawLine((int)this.canvas.getWidth()/2,0,(int)this.canvas.getWidth()/2,1000);
+
         graphics.translate(this.canvas.getWidth()/2, this.canvas.getHeight()/2);
-        graphics.scale(1, -1);
+        graphics.scale( 1, -1);
+
+        graphics.setColor(Color.black);
+
+        double resolution = 0.1;
+        double scale = 200;
+        double lastY = Math.pow(-10, 3);
+
+        for(double x = -10; x < 10; x += resolution)
+        {
+            double y = (float)Math.pow(x, 3);
+            graphics.draw(new Line2D.Double(x*scale, y*scale, (x-resolution)*scale, lastY*scale));
+            lastY = y;
+        }
 
 
     }
