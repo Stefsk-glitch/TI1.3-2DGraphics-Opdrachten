@@ -8,10 +8,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 import org.jfree.fx.FXGraphics2D;
 
-public class Graph extends Application {
+import javax.swing.*;
+
+public class Graph extends Application
+{
+    private Canvas canvas;
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Canvas canvas = new Canvas(1920, 1080);
+    public void start(Stage primaryStage) throws Exception
+    {
+        canvas = new Canvas(640, 480);
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));
         primaryStage.setScene(new Scene(new Group(canvas)));
         primaryStage.setTitle("Graph");
@@ -19,12 +25,18 @@ public class Graph extends Application {
     }
     
     
-    public void draw(FXGraphics2D graphics) {
+    public void draw(FXGraphics2D graphics)
+    {
+        graphics.translate(this.canvas.getWidth()/2, this.canvas.getHeight()/2);
+        graphics.scale(1, -1);
+
+
     }
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(Graph.class);
     }
 
