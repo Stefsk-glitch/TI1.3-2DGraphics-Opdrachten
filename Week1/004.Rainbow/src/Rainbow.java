@@ -10,8 +10,9 @@ import org.jfree.fx.FXGraphics2D;
 
 public class Rainbow extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Canvas canvas = new Canvas(1920, 1080);
+    public void start(Stage primaryStage) throws Exception
+    {
+        Canvas canvas = new Canvas(1280, 720);
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));
         primaryStage.setScene(new Scene(new Group(canvas)));
         primaryStage.setTitle("Rainbow");
@@ -19,13 +20,18 @@ public class Rainbow extends Application {
     }
     
     
-    public void draw(FXGraphics2D graphics) {
-
+    public void draw(FXGraphics2D graphics)
+    {
+        for(int i = 0; i < 500; i++) {
+            graphics.setColor(Color.getHSBColor(i/500.0f, 1, 1));
+            graphics.drawLine(10+i, 719-i, 100+i, 719-i);
+        }
     }
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(Rainbow.class);
     }
 
