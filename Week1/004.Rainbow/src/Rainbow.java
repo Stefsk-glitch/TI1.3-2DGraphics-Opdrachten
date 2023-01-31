@@ -36,10 +36,18 @@ public class Rainbow extends Application {
 
         for (double i = 0; i < Math.PI; i += res)
         {
-            x1 = 100 * Math.cos(i);
-            x2 = 200 * Math.cos(i);
+            // binnen
             y1 = 100 * Math.sin(i);
+            x1 = 100 * Math.cos(i);
+            System.out.println(x1);
+            System.out.println(y1);
+
+            // buiten
+            x2 = 200 * Math.cos(i);
             y2 = 200 * Math.sin(i);
+            System.out.println(x2);
+            System.out.println(y2);
+
             graphics.setColor(Color.getHSBColor((float) (1 / Math.PI * i), 1, 1));
             graphics.draw(new Line2D.Double(x1, y1, x2, y2));
         }
