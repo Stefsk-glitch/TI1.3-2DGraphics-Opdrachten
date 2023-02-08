@@ -27,12 +27,28 @@ public class Mirror extends Application {
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));
     }
 
-
     public void draw(FXGraphics2D graphics)
     {
         graphics.setTransform(new AffineTransform());
-        graphics.setBackground(Color.white);
+        graphics.setBackground(Color.WHITE);
         graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
+        graphics.translate(300, 300);
+
+        GeneralPath myShape = new GeneralPath();
+
+        myShape.moveTo(0, 0);
+        myShape.lineTo(100, 0);
+        myShape.moveTo(100, 0);
+        myShape.lineTo(100, 100);
+        myShape.moveTo(100, 100);
+        myShape.lineTo(0, 100);
+
+        graphics.draw(myShape);
+
+        graphics.setColor(Color.blue);
+
+        AffineTransform tx = AffineTransform.getScaleInstance(-1, 1);
+        graphics.draw(tx.createTransformedShape(myShape));
     }
 
 
