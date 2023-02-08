@@ -60,7 +60,7 @@ public class BlockDrag extends Application
 
         for (int i = 0; i < 12; i++)
         {
-            blocks.add(new Block(colors.get(i), 100, 100, 100, 100));
+            blocks.add(new Block(100,100,100,100, colors.get(i)));
         }
 
         draw(new FXGraphics2D(canvas.getGraphicsContext2D()));
