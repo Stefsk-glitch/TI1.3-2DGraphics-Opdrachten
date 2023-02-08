@@ -14,25 +14,46 @@ import org.jfree.fx.ResizableCanvas;
 
 public class GradientPaintExercise extends Application {
     private ResizableCanvas canvas;
+    private Point2D center;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
         BorderPane mainPane = new BorderPane();
+
         canvas = new ResizableCanvas(g -> draw(g), mainPane);
+        //canvas.resize(640, 480);
+
+        center = new Point2D.Double((int)canvas.getWidth() / 2, (int)canvas.getHeight() / 2);
+
+        FXGraphics2D graphics = new FXGraphics2D(canvas.getGraphicsContext2D());
+
+        canvas.setOnMouseDragged( event -> {
+            center = new Point2D.Double(event.getX(), event.getY());
+            draw(graphics);
+        });
+
         mainPane.setCenter(canvas);
         primaryStage.setScene(new Scene(mainPane));
         primaryStage.setTitle("GradientPaint");
         primaryStage.show();
-        draw(new FXGraphics2D(canvas.getGraphicsContext2D()));
+        draw(graphics);
     }
 
 
     public void draw(FXGraphics2D graphics)
     {
-        graphics.setTransform(new AffineTransform());
-        graphics.setBackground(Color.white);
-        graphics.clearRect(0, 0, (int) canvas.getWidth(), (int) canvas.getHeight());
+//        GradientPaint gp1 = new GradientPaint(0, 0, Color.green, 640, 480, Color.black);
+//        graphics.setPaint(gp1);
+//        graphics.fillRect(00, 00, 640, 480);
+
+        float radius = 60;
+        float[] dist = {0.0f, 0.2f, 1.0f};
+        Color[] colors = {Color.RED, Color.WHITE, Color.BLUE};
+        RadialGradientPaint radialGradientPaint = new RadialGradientPaint(center, radius, dist, colors);
+        graphics.setPaint(radialGradientPaint);
+        graphics.fillRect(00, 00, 640, 480);
     }
 
 
