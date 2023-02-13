@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="fxgraphics2d-1.10" level="project" />
+    <orderEntry type="library" name="dyn4j-v3.3.0" level="project" />
   </component>
 </module>
