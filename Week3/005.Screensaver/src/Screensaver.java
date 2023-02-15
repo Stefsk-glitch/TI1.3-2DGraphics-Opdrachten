@@ -191,8 +191,8 @@ public class Screensaver extends Application
                 if (position.getX() + 1 < canvas.getWidth() && position.getY() - 1 > 0)
                 {
 
-                    position.setX(position.getX() + 1);
-                    position.setY(position.getY() - 1);
+                    position.setX(position.getX() - 1);
+                    position.setY(position.getY() + 1);
                 }
                 else
                 {
