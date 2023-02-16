@@ -116,8 +116,8 @@ public class Screensaver extends Application
 
     public void update(double deltaTime)
     {
-//        System.out.println(canvas.getHeight());
-//        System.out.println(canvas.getWidth());
+        System.out.println(canvas.getHeight());
+        System.out.println(canvas.getWidth());
 
         ArrayList<Position> oldPositions = new ArrayList<>();
 
@@ -132,6 +132,8 @@ public class Screensaver extends Application
         {
             if (position.getDirection() == 1)
             {
+                System.out.println("1");
+
                 if (position.getX() - 3 > 0 && position.getY() - 3 > 0)
                 {
                     position.setX(position.getX() - 3);
@@ -142,7 +144,7 @@ public class Screensaver extends Application
                     Random r = new Random();
                     int value = position.getDirection();
 
-                    while (position.getDirection() == value)
+                    while (position.getDirection() == value && value != 2 && value != 4)
                     {
                         value = r.nextInt(4) + 1;
                     }
@@ -153,9 +155,10 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 2)
             {
+                System.out.println("2");
+
                 if (position.getX() + 3 < canvas.getWidth() && position.getY() - 3 > 0)
                 {
-
                     position.setX(position.getX() + 3);
                     position.setY(position.getY() - 3);
                 }
@@ -164,7 +167,7 @@ public class Screensaver extends Application
                     Random r = new Random();
                     int value = position.getDirection();
 
-                    while (position.getDirection() == value)
+                    while (position.getDirection() == value && value != 3 && value != 1)
                     {
                         value = r.nextInt(4) + 1;
                     }
@@ -175,6 +178,8 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 3)
             {
+                System.out.println("3");
+
                 if (position.getX() + 3 < canvas.getWidth() && position.getY() + 3 < canvas.getHeight())
                 {
                     position.setX(position.getX() + 3);
@@ -185,7 +190,7 @@ public class Screensaver extends Application
                     Random r = new Random();
                     int value = position.getDirection();
 
-                    while (position.getDirection() == value)
+                    while (position.getDirection() == value && value != 4 && value != 2)
                     {
                         value = r.nextInt(4) + 1;
                     }
@@ -196,9 +201,9 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 4)
             {
-                if (position.getX() + 3 < canvas.getWidth() && position.getY() - 3 > 0)
+                System.out.println("4");
+                if (position.getX() - 3 < canvas.getWidth() && position.getY() + 3 > canvas.getHeight())
                 {
-
                     position.setX(position.getX() - 3);
                     position.setY(position.getY() + 3);
                 }
@@ -207,7 +212,7 @@ public class Screensaver extends Application
                     Random r = new Random();
                     int value = position.getDirection();
 
-                    while (position.getDirection() == value)
+                    while (position.getDirection() == value && value != 3 && value != 1)
                     {
                         value = r.nextInt(4) + 1;
                     }
