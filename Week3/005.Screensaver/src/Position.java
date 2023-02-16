@@ -40,4 +40,14 @@ public class Position
     {
         this.direction = direction;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Position{" +
+                "x=" + x +
+                ", y=" + y +
+                ", direction=" + direction +
+                '}';
+    }
 }

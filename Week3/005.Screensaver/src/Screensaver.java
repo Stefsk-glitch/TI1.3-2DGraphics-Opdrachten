@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 import org.jfree.fx.FXGraphics2D;
 import org.jfree.fx.ResizableCanvas;
@@ -25,6 +27,7 @@ public class Screensaver extends Application
 {
     private ResizableCanvas canvas;
     private ArrayList<Position> positions = new ArrayList<>();
+    private ArrayList<ArrayList<Position>> history = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws Exception
@@ -64,17 +67,14 @@ public class Screensaver extends Application
         System.setProperty("myColor", "#8A008B");
         graphics.setColor(Color.getColor("myColor"));
 
-        for (Position position : positions)
+        if (history.size() == 10)
         {
-            if (positions.size()+1 > 40)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    positions.remove(i);
-                    break;
-                }
-            }
-            else
+            history.remove(0);
+        }
+
+        for (ArrayList<Position> historyPosition : history)
+        {
+            for (Position position : historyPosition)
             {
                 graphics.draw(new Line2D.Double(position.getX(), position.getY(), position.getX(), position.getY()));
             }
@@ -85,12 +85,12 @@ public class Screensaver extends Application
 
     private void drawBetweenPositions(FXGraphics2D graphics)
     {
-        for (int i = 0; i < positions.size(); i = i + 4)
+        for (ArrayList<Position> historyPosition : history)
         {
-            Position pos1 = positions.get(i);
-            Position pos2 = positions.get(i+1);
-            Position pos3 = positions.get(i+2);
-            Position pos4 = positions.get(i+3);
+            Position pos1 = historyPosition.get(0);
+            Position pos2 = historyPosition.get(1);
+            Position pos3 = historyPosition.get(2);
+            Position pos4 = historyPosition.get(3);
 
             graphics.draw(new Line2D.Double(pos1.getX(), pos1.getY(), pos2.getX(), pos2.getY()));
             graphics.draw(new Line2D.Double(pos2.getX(), pos2.getY(), pos3.getX(), pos3.getY()));
@@ -119,14 +119,23 @@ public class Screensaver extends Application
 //        System.out.println(canvas.getHeight());
 //        System.out.println(canvas.getWidth());
 
+        ArrayList<Position> oldPositions = new ArrayList<>();
+
+        for (Position position : positions)
+        {
+            oldPositions.add(new Position(position.getX(), position.getY(), position.getDirection()));
+        }
+
+        history.add(oldPositions);
+
         for (Position position : positions)
         {
             if (position.getDirection() == 1)
             {
-                if (position.getX() - 1 > 0 && position.getY() - 1 > 0)
+                if (position.getX() - 3 > 0 && position.getY() - 3 > 0)
                 {
-                    position.setX(position.getX() - 1);
-                    position.setY(position.getY() - 1);
+                    position.setX(position.getX() - 3);
+                    position.setY(position.getY() - 3);
                 }
                 else
                 {
@@ -144,11 +153,11 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 2)
             {
-                if (position.getX() + 1 < canvas.getWidth() && position.getY() - 1 > 0)
+                if (position.getX() + 3 < canvas.getWidth() && position.getY() - 3 > 0)
                 {
 
-                    position.setX(position.getX() + 1);
-                    position.setY(position.getY() - 1);
+                    position.setX(position.getX() + 3);
+                    position.setY(position.getY() - 3);
                 }
                 else
                 {
@@ -166,11 +175,10 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 3)
             {
-                if (position.getX() + 1 < canvas.getWidth() && position.getY() + 1 < canvas.getHeight())
+                if (position.getX() + 3 < canvas.getWidth() && position.getY() + 3 < canvas.getHeight())
                 {
-
-                    position.setX(position.getX() + 1);
-                    position.setY(position.getY() + 1);
+                    position.setX(position.getX() + 3);
+                    position.setY(position.getY() + 3);
                 }
                 else
                 {
@@ -188,11 +196,11 @@ public class Screensaver extends Application
 
             if (position.getDirection() == 4)
             {
-                if (position.getX() + 1 < canvas.getWidth() && position.getY() - 1 > 0)
+                if (position.getX() + 3 < canvas.getWidth() && position.getY() - 3 > 0)
                 {
 
-                    position.setX(position.getX() - 1);
-                    position.setY(position.getY() + 1);
+                    position.setX(position.getX() - 3);
+                    position.setY(position.getY() + 3);
                 }
                 else
                 {
