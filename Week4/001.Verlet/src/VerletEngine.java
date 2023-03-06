@@ -92,13 +92,19 @@ public class VerletEngine extends Application {
     }
 
     private void mouseClicked(MouseEvent e) {
-        Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
-        Particle nearest = getNearest(mousePosition);
-        Particle newParticle = new Particle(mousePosition);
-        particles.add(newParticle);
-        constraints.add(new DistanceConstraint(newParticle, nearest));
+        if (e.getButton() == MouseButton.PRIMARY) {
+            Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
+            Particle newParticle = new Particle(mousePosition);
+            Particle nearest = getNearest(mousePosition);
+            particles.add(newParticle);
+            constraints.add(new DistanceConstraint(newParticle, nearest));
+        } else if (e.getButton() == MouseButton.SECONDARY) {
+            Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
+            Particle nearest = getNearest(mousePosition);
+            Particle newParticle = new Particle(mousePosition);
+            particles.add(newParticle);
+            constraints.add(new DistanceConstraint(newParticle, nearest));
 
-        if (e.getButton() == MouseButton.SECONDARY) {
             ArrayList<Particle> sorted = new ArrayList<>();
             sorted.addAll(particles);
 
@@ -118,6 +124,7 @@ public class VerletEngine extends Application {
             init();
         }
     }
+
 
     private Particle getNearest(Point2D point) {
         Particle nearest = particles.get(0);
