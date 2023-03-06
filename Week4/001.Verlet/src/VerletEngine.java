@@ -122,6 +122,17 @@ public class VerletEngine extends Application {
             particles.clear();
             constraints.clear();
             init();
+        } else if (e.isControlDown() && e.getButton() == MouseButton.SECONDARY) {
+            Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
+            Particle newParticle = new Particle(mousePosition);
+            particles.add(newParticle);
+            Particle nearest = getNearest(mousePosition);
+
+            DistanceConstraint constraint1 = new DistanceConstraint(newParticle, nearest, 100);
+            DistanceConstraint constraint2 = new DistanceConstraint(newParticle, particles.get(particles.indexOf(nearest) + 1), 100);
+
+            constraints.add(constraint1);
+            constraints.add(constraint2);
         }
     }
 
