@@ -77,7 +77,8 @@ public class Spotlight extends Application
             graphics.setPaint(Color.getHSBColor(r.nextFloat(),1,1));
             graphics.drawLine((int)(r.nextInt() % canvas.getWidth()), (int)(r.nextInt() % canvas.getHeight()), (int)(r.nextInt() % canvas.getWidth()), (int)(r.nextInt() % canvas.getHeight()));
         }
-        graphics.setClip(null);
+        graphics.setClip(null);github
+
     }
 
     public void init()

@@ -202,7 +202,7 @@ public class Screensaver extends Application
             if (position.getDirection() == 4)
             {
                 System.out.println("4");
-                if (position.getX() - 3 < canvas.getWidth() && position.getY() + 3 > canvas.getHeight())
+                if (position.getX() - 3 > 0 && position.getY() + 3 < canvas.getHeight())
                 {
                     position.setX(position.getX() - 3);
                     position.setY(position.getY() + 3);
