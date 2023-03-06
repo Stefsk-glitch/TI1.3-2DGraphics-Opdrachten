@@ -99,24 +99,48 @@ public class VerletEngine extends Application {
             particles.add(newParticle);
             constraints.add(new DistanceConstraint(newParticle, nearest));
         } else if (e.getButton() == MouseButton.SECONDARY) {
-            Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
-            Particle nearest = getNearest(mousePosition);
-            Particle newParticle = new Particle(mousePosition);
-            particles.add(newParticle);
-            constraints.add(new DistanceConstraint(newParticle, nearest));
-
-            ArrayList<Particle> sorted = new ArrayList<>();
-            sorted.addAll(particles);
-
-            //sorteer alle elementen op afstand tot de muiscursor. De toegevoegde particle staat op 0, de nearest op 1, en de derde op 2
-            Collections.sort(sorted, new Comparator<Particle>() {
-                @Override
-                public int compare(Particle o1, Particle o2) {
-                    return (int) (o1.getPosition().distance(mousePosition) - o2.getPosition().distance(mousePosition));
+            if (e.isShiftDown()) {
+                Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
+                Particle nearest1 = getNearest(mousePosition);
+                Particle nearest2 = null;
+                double distance1 = Double.MAX_VALUE, distance2 = Double.MAX_VALUE;
+                for (Particle p : particles) {
+                    double distance = p.getPosition().distance(mousePosition);
+                    if (p != nearest1 && distance < distance2) {
+                        if (distance < distance1) {
+                            distance2 = distance1;
+                            nearest2 = nearest1;
+                            distance1 = distance;
+                            nearest1 = p;
+                        } else {
+                            distance2 = distance;
+                            nearest2 = p;
+                        }
+                    }
                 }
-            });
+                if (nearest1 != null && nearest2 != null) {
+                    constraints.add(new DistanceConstraint(nearest1, nearest2));
+                }
+            } else {
+                Point2D mousePosition = new Point2D.Double(e.getX(), e.getY());
+                Particle nearest = getNearest(mousePosition);
+                Particle newParticle = new Particle(mousePosition);
+                particles.add(newParticle);
+                constraints.add(new DistanceConstraint(newParticle, nearest));
 
-            constraints.add(new DistanceConstraint(newParticle, sorted.get(2)));
+                ArrayList<Particle> sorted = new ArrayList<>();
+                sorted.addAll(particles);
+
+                //sorteer alle elementen op afstand tot de muiscursor. De toegevoegde particle staat op 0, de nearest op 1, en de derde op 2
+                Collections.sort(sorted, new Comparator<Particle>() {
+                    @Override
+                    public int compare(Particle o1, Particle o2) {
+                        return (int) (o1.getPosition().distance(mousePosition) - o2.getPosition().distance(mousePosition));
+                    }
+                });
+
+                constraints.add(new DistanceConstraint(newParticle, sorted.get(2)));
+            }
         } else if (e.getButton() == MouseButton.MIDDLE) {
             // Reset
             particles.clear();
@@ -135,7 +159,6 @@ public class VerletEngine extends Application {
             constraints.add(constraint2);
         }
     }
-
 
     private Particle getNearest(Point2D point) {
         Particle nearest = particles.get(0);
