@@ -1,7 +1,9 @@
 import org.jfree.fx.FXGraphics2D;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class PositionConstraint implements Constraint {
+public class PositionConstraint implements Constraint, Serializable
+{
 
     private Particle particle;
     private Point2D fixedPosition;

@@ -2,8 +2,10 @@ import org.jfree.fx.FXGraphics2D;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
-public class Particle {
+public class Particle implements Serializable
+{
 
     private Point2D position;
     private Point2D lastPosition;
